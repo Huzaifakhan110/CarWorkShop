@@ -1,0 +1,173 @@
+<div class="lime-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <span class="footer-text">2021 © 100Tech Solutions</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Javascripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="../assets/plugins/bootstrap/popper.min.js"></script>
+<script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="../assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="../assets/plugins/chartjs/chart.min.js"></script>
+<script src="../assets/plugins/apexcharts/dist/apexcharts.min.js"></script>
+<script src="../assets/plugins/select2/js/select2.full.min.js"></script>
+<script src="../assets/js/lime.min.js"></script>
+<script src="../assets/js/pages/dashboard.js"></script>
+<script src="../assets/js/bootstable.min.js"></script>
+<script src="../assets/js/pages/select2.js"></script>
+<script src="../assets/js/printThis.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js" integrity="sha256-yE5LLp5HSQ/z+hJeCqkz9hdjNkk1jaiGG0tDCraumnA=" crossorigin="anonymous"></script>
+
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+
+
+<script src="https://cdn.datatables.net/plug-ins/1.11.3/api/sum().js"></script>
+<script>
+  $("#inputphone").mask('00000000000');
+  $("#input-phone").mask('00000000000');
+  $("#contno").mask('00000000000');
+
+  $("#hrId").mask('0');
+
+
+  function del(table, id, table_id) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Delete',
+      confirmButtonColor: "red",
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        $.ajax({
+          url: baseUrl + "/api/delete/" + table + "/" + id,
+          type: "DELETE",
+          success: function(result) {
+            // console.log(result)
+            $(table_id).DataTable().ajax.reload();
+            if (result.original.status_code == 200) {
+              if (table == "project_dash") {
+                $.ajax({
+                  url: baseUrl + "/api/project",
+                  type: 'GET',
+                  success: function(result) {
+                    // alert("hurray")
+                    $('#total').html(result.total_project)
+                    $('#closed').html(result.completed_project)
+                    $('#ongoing').html(result.ongoing_project)
+                  }
+                })
+              }
+              swal.fire({
+                text: result.original.status_message,
+                icon: "success",
+                showConfirmButton: false,
+                timer: 2000
+              });
+            } else {
+              swal.fire({
+                text: result.original.status_message,
+                icon: "warning",
+                showConfirmButton: false,
+                timer: 2000
+              });
+            }
+
+          },
+          error: function(result) {
+            console.log(result);
+          }
+        })
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info')
+      }
+    })
+
+  }
+
+  if (localStorage.getItem("token") && is_login_page == false) {
+    // alert("here");
+    var token = {
+      "token": localStorage.getItem("token")
+    }
+    console.log(localStorage.getItem("token"))
+    $.ajaxSetup({
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem("token")
+      }
+    })
+
+    $.ajax({
+      url: baseUrl + "/api/user/roles",
+      type: "GET",
+      data: token,
+      success: function(result) {
+        console.log(result);
+        if (result == "admin") {
+          $('#to_hide').show();
+
+        } else if (result == "staff") {
+          $('#to_hide').hide();
+        } else {
+          if (is_login_page == false) {
+            location.href = 'login.php';
+            is_login_page = true
+          }
+        }
+
+      }
+    });
+  } else {
+    if (is_login_page == false) {
+      location.href = 'login.php';
+      is_login_page = true
+    }
+
+  }
+
+  function convertToInternationalCurrencySystem(labelValue) {
+
+    // Nine Zeroes for Billions
+    return Math.abs(Number(labelValue)) >= 1.0e+9
+
+      ?
+      (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + "B"
+      // Six Zeroes for Millions 
+      :
+      Math.abs(Number(labelValue)) >= 1.0e+6
+
+      ?
+      (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + "M"
+      // Three Zeroes for Thousands
+      :
+      Math.abs(Number(labelValue)) >= 1.0e+3
+
+      ?
+      (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + "K"
+
+      :
+      Math.abs(Number(labelValue));
+
+  }
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+</body>
+
+</html>

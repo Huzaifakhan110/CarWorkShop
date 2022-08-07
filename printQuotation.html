@@ -1,0 +1,310 @@
+<!DOCTYPE html> 
+ <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Responsive Admin Dashboard Template">
+    <meta name="keywords" content="admin,dashboard">
+    <meta name="author" content="stacks">
+    <!-- The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    
+    <!-- Title -->
+    <title>Car Work Shop</title>
+
+    <!-- Styles -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap" rel="stylesheet"> -->
+    <link href="assets/css/materialIcon.css" rel="stylesheet">
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/plugins/font-awesome/css/all.min.css" rel="stylesheet">
+  
+    <!-- Theme Styles -->
+    <link href="assets/css/lime.min.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+       <!-- <script> var baseUrl="https://mainterior.pk/erpapi/old"; </script> -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+        @media print {
+            #print {
+                display :  none;
+            }
+            #hide{
+                display: none;
+            }
+        }
+        </style>
+</head> 
+<body>  
+<span id="to_hide">
+<div class="lime-container">
+            <div class="lime-body">
+                <div class="container" >
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-title" id="hide" style="margin-top: 20px;">
+                            
+                                <a><i class="fa fa-arrow-left" id="back" style="font-size: larger; display: inline; font-weight: 400px; margin-top: 10px;  margin-left: 20px; cursor: pointer; "></i></a>
+                                
+                                <h3 id="hed1" style="display: inline;">Print Slip</h3>
+                                
+                            </div>
+                            
+                            <!-- <canvas id="canvas"></canvas> -->
+                        </div>
+                    </div>
+             <div class="lime-body">
+                <div class="container" style="margin-top: 40px;">
+                    <div class="row">
+                    <div class="col-xl">
+                            <div class="card"  style="background-color:#dfe7f5;">
+                                <div class="card-body">
+                                    
+                        <div class="col-md-12">
+                            <div class="page-title">
+                              
+                                        <!-- <input type="hidden" name='_token' value='{{csrf_token()}}'> -->
+                                        <div class="row" id="row-1">
+                                            <div class="col-md-12 column_1">
+                                              
+                                            </div>
+                                        </div>
+                                        <div class="row" id="row-2">
+                                            <div class="col-6 column_1">
+                                              
+                                            </div>
+                                            <div class="col-6 column_2">
+
+                                            </div>
+                                        </div>
+                                        <div class="row" id="row-3">
+                                            <div class="col-4 column_1">
+                                              
+                                            </div>
+                                            <div class="col-4 column_2">
+                                                <div class="text-center">
+                                                    <svg id="barcode"></svg>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 column_3">
+                                              
+                                            </div>
+                                          
+                                        </div>
+                                        <br>
+                                        
+                                        <div class="row" >
+                                            <div class="col-md-4 text-center">
+                                               <b> <label >Quotation No: 0<span id="invoice_no"></span></label>
+                                               </b></div>
+                                            <div class="col-md-4 text-center">
+                                                <h4>Cash/Credit Invoice</h4>
+                                            </div>
+                                            <div class="col-md-4 text-center">
+                                                <b><label >Date:  <span id="invoice_date"></span></label></b>
+                                                <b><label >Expiry Date:  <span id="expiry_date"></span></label></b>
+
+                                            </div>
+                                        </div>
+                                        <!-- <div class="row ">
+                                            <div class="col-md-6 text-center">
+                                                <label>Name:</label>
+                                            </div>
+                                            </div> -->
+                                       <hr>
+                                       
+                                       <div class="row" id="1" >
+                                        <table class="table" id="products_table">
+                                            
+                                            <div class="col-md-12">
+                                                <b><label>  </b></span></label>
+                                            </div>
+                                            <thead >
+                                                <tr>
+                                                <th style="color: black;">To:<span id="invoice_name" style="margin-left: 10px;"></span></th>
+                                            </tr>
+                                                <tr>
+                                                    <th>Description</th>
+                                                    <th>Quantity</th>
+                                                    <th>Unit Price</th>
+                                                    <th>Sub Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="products">
+                                                
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td></td>
+
+                                                    <td></td>
+                                                    <th>Discount</th>
+                                                    <td id="discount"></td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+
+                                                    <td></td>
+                                                    <th>Tax</th>
+                                                    <td id="tax"></td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+
+                                                    <td></td>
+                                                    <th>Total</th>
+                                                    <td id="total"></td>
+
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                      
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <!-- <button id="add_row" class="btn btn-info pull-left">+ Add Row</button>
+                                                <button id='delete_row' class="pull-right btn btn-danger">- Delete Row</button> -->
+                                                <button id='print' type="button" class="pull-right btn btn-success" onclick="window.print()">Print & Submit</button>
+                                            </div>
+                                        </div>
+                                            
+                                   
+                                                    </div>
+                                                </div>
+                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                </span>
+            <!-- </html> -->
+</body>
+</html> 
+<script>window.$ = window.jQuery = require('./assets/plugins/jquery/jquery-3.1.0.min.js')</script>
+<script>window.richText=window.rich=require("./assets/plugins/jquery/jquery.richtext.js")</script>
+<script>
+  if (typeof module === 'object') {window.module = module; module = undefined;
+  }
+  // const fs = require('fs');
+ </script>
+<script src="./assets/plugins/jquery/qrcode1.min.js"></script>
+                    <!-- <script src="./assets/plugins/jquery/jquery-3.1.0.min.js"> </script> -->
+                    <!-- <script src="./assets/plugins/jquery/jquery.richtext.js"></script> -->
+                    <script src="./assets/plugins/jquery/jquery.richtext.min.js"></script>
+                    <!-- <script type="text/javascript" src="App.js"></script>   -->
+
+<!-- <script>
+var is_login_page=false;
+var element = document.getElementById("quot");
+  element.classList.add("active");
+</script> -->
+                    
+<!-- <script>
+    function print(){
+
+    }
+</script>                -->
+<script LANGUAGE=”JavaScript”>
+
+    if (window.print) {
+    
+    document.write('"<form><input type=button name=print value=”Print” onClick=”window.print()”></form>"');
+    document.body.style.backgroundColor = "black";
+    }
+    </script>
+
+    <script>
+        var setting
+        $(document).ready(function(){ 
+      $('#back').on('click',function(){
+                         location.replace('dashboard.html');
+                       })
+    let db = require("better-sqlite3")("carWorkshop.db")
+     setting=db.prepare(`SELECT * FROM settings ORDER BY id desc`).get();//getting setting
+    $('.column_1').html(setting.firstCol);     
+    //  $('.column_2').html(setting.secondCol);
+     $('.column_3').html(setting.thirdCol);
+
+    if(setting.selectValue=='1'){
+
+       $('#row-1').show();
+       $('#row-2').hide();
+       $('#row-3').hide();
+       $('.column_1').html(setting.firstCol);
+       $('.column_2').html(setting.secondCol);
+     $('.column_3').html(setting.thirdCol);
+    }
+    else if(setting.selectValue=='2'){
+        $('#row-1').hide();
+        $('#row-2').show();
+        $('#row-3').hide();
+        $('.column_1').html(setting.firstCol);
+       $('.column_2').html(setting.secondCol);
+     $('.column_3').html(setting.thirdCol);
+    }
+    else if(setting.selectValue=='3'){
+        $('#row-1').hide();
+        $('#row-2').hide();
+        $('#row-3').show();
+        $('.column_1').html(setting.firstCol);
+       
+     $('.column_3').html(setting.thirdCol);
+    }
+    console.log(setting.firstCol);
+    const sql=`SELECT * FROM quotation AS i where i.id=?`;
+    console.log(sql)
+   
+    const res=db.prepare(sql).get(localStorage.getItem("quotation_id"));
+
+        console.log(res)
+        console.log(localStorage.getItem("quotation_id"));
+        const res1=db.prepare(`SELECT * FROM quotation_details where quotation_id=?`).all(res.id);
+  console.log(res1);
+    var total=0;
+    $("#invoice_no").text(res.id)
+    $("#invoice_date").text(res.Date)
+    $("#invoice_name").text(res.company)
+    $("#expiry_date").text(res.expiry_date)
+    
+    
+    var table = document.getElementById("products_table");
+    // var tableContent = '  <tr><td class="col-md-6"></td><td></td><td></td><td></td></tr>';
+        for (index = 0; index < res1.length; index++) {
+            total+=res1[index].sub_total;
+            $("#products").append("<tr><td class='col-md-6'>"+res1[index].description+"</td><td>"+res1[index].qty+"</td><td>"+res1[index].unit_price+"</td><td>"+res1[index].sub_total+"</td></tr>")
+}
+var disc_type=null;
+var tax_type=null;
+        if(res.discount_type=="percentage"){
+            disc_type="%"
+        }
+        if(res.tax_type=="percentage"){
+            tax_type="%"
+        }
+        $('#total').text(total)
+        $('#discount').text(res.discount+disc_type)
+        $('#tax').text(res.tax+tax_type)
+
+        var data
+        var extra=setting.secondCol
+        if(localStorage.getItem("is_duplicate")=="true"){
+            data="Quotaion#:"+res.id+", Company Name: "+res.company+", Date: "+res.Date+", Expiry Date: "+res.expiry_date+$(extra).text()+" Duplicate"
+        }
+        else{
+            data="Quotaion#:"+res.id+", Company Name: "+res.company+", Date: "+res.Date+", Expiry Date: "+res.expiry_date+$(extra).text()
+        }
+        var qr = require('qr-image');
+        var svg_string = qr.imageSync(data, { type: 'svg' });
+        $('#barcode').append(svg_string)
+
+        
+        const res3=db.prepare(`SELECT id FROM settings`).all();
+  console.log(res3);
+    })
+    </script>

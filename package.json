@@ -1,0 +1,104 @@
+{
+  "name": "carworkshop",
+  "version": "1.0.0",
+  "description": "A bill printing and mangigng application build in electron",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "postinstall": "electron-builder install-app-deps",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "build": "electron-builder",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "author": "100TechSolutions",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^7.5.0",
+    "datatables.net-dt": "^1.11.5",
+    "electron-squirrel-startup": "^1.0.0",
+    "npm": "^8.5.2",
+    "qr-image": "^3.2.0",
+    "qrcode": "^1.5.0",
+    "sqlite": "^4.0.23",
+    "sweetalert2": "^11.4.4"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.63",
+    "@electron-forge/maker-deb": "^6.0.0-beta.63",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.63",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
+    "@electron-forge/maker-zip": "^6.0.0-beta.63",
+    "electron": "^13.6.9",
+    "electron-builder": "^22.14.13",
+    "electron-forge-maker-nsis": "^23.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahsanfurqan/CarWorkShop.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ahsanfurqan/CarWorkShop/issues"
+  },
+  "homepage": "https://github.com/ahsanfurqan/CarWorkShop#readme",
+  "ELECTRON_ENV": "production",
+  "build": {
+    "appId": "com.100techsolutions",
+    "win": {
+      "target": [
+        {
+          "target": "NSIS",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "artifactName": "carworkshop",
+      "oneClick": true,
+      "perMachine": false,
+      "installerIcon": "assets/icon.ico",
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "shortcutName": "Carworkshop-100TechSolutions",
+      "runAfterFinish": false,
+      "packElevateHelper": false
+    },
+    "productName": "carworkshop",
+    "directories": {
+      "output": "build"
+    }
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "icon": "./assets/icon.ico"
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "carworkshop"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  }
+}

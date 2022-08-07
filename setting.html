@@ -1,0 +1,212 @@
+<!-- <script>
+var remote = window.require('electron').remote;
+var electronFs = remote.require('fs');
+var electronDialog = remote.dialog;
+</script>  -->
+<!DOCTYPE html>
+ <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Responsive Admin Dashboard Template">
+    <meta name="keywords" content="admin,dashboard">
+    <meta name="author" content="stacks">
+    <!-- The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    
+    <!-- Title -->
+    <title>Car Work Shop</title>
+ 
+    <!-- Styles -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/plugins/font-awesome/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    <!-- <link rel="stylesheet" href="/assets/css/richtext.min.css"> -->
+  
+    <!-- Theme Styles -->
+    <link href="assets/css/lime.min.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <link href="assets/css/richtext.min.css" rel="stylesheet">
+
+    
+</head>   
+<body>
+<span id="to_hide">
+<div class="lime-container">
+            <div class="lime-body">
+                <div class="container" style="margin-top: 40px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-title">
+                                <nav aria-label="breadcrumb">
+                                  
+                                </nav>
+                               <a><i class="fa fa-arrow-left" id="back" style="font-size: larger; cursor: pointer; display: inline; font-weight: 400px; margin-top: 10px;  margin-left: 20px; "></i></a>
+
+                                <h3 style="display: inline;">Header</h3>
+                            </div>
+                        </div>
+                    </div>
+             <div class="lime-body">
+                <div class="container" style="margin-top: 20px;">
+                    <div class="row">
+                    <div class="col-xl">
+                            <div class="card"  style="background-color:#dfe7f5;">
+                                <div class="card-body">
+                                    
+                        <div class="col-md-12">
+                            <div class="page-title">
+                                    <form id='myform' class='formclass' >
+                                        <input type="hidden" name='_token' value='{{csrf_token()}}'>
+                                        <div class="form-row" id="colmn_sel">
+                                            <div class="form-group col-12" id="sel_col">
+                                               <label for="expense_mode">Select Column<span class="text-danger"> *</span></label>
+                                               <select class="form-control w-100" style="width:100%" id="colsel">
+                                                 <option>open this menu</option>
+                                                 <option value="1" selected>1</option>
+                                                 <option value="2" selected>2</option>
+                                                 <option value="3" selected>3</option>
+                                               </select>
+                                             </div>
+                                           </div>
+                                       <section>             
+                                     <div class="form-row" >
+                                          <h3>Header Left</h3>
+                                            <div class="col-12">      
+                                                    <textarea class="form-control content" id="first_col" style="height: 70vh;"rows="10" cols="80"></textarea>
+                                            </div>
+                                       </div>
+                                    </section>
+                                <section>
+                                   
+                                       <div class="form-row" >
+                                        <h3>Qrcode Data</h3>
+                                        <div class="col-12">      
+                                                <textarea class="form-control content" id="second_col" style="height: 70vh;"rows="10" cols="80"></textarea>
+                                        </div>
+                                       
+                                   </div>
+                                </section>
+                                <section>
+                                    
+                                    <div class="form-row" >
+                                        <h3>Header Right</h3> 
+                                        
+                                    <div class="col-12">      
+                                        <textarea class="form-control content" id="third_col" style="height: 70vh;"rows="10" cols="80"></textarea>
+                                    </div>
+                                   </div>
+                                </section>
+                              
+                            </form>
+                                
+                                  
+                            <div class="form-group col-md-4">
+                                <button type="submit" class="btn btn-success" id="save_d">Save</button>
+                                
+                            </div>    
+                        </div>   
+                                           </div>
+                                        </div>                 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+               
+</span>
+</body>
+</html> 
+                    <script>window.$ = window.jQuery = require('./assets/plugins/jquery/jquery-3.1.0.min.js');</script>
+                    <script>window.richText=window.rich=require("./assets/plugins/jquery/jquery.richtext.js")</script>
+                                        <!-- <script src="./assets/plugins/jquery/jquery-3.1.0.min.js"> </script> -->
+                                        <!-- <script src="./assets/plugins/jquery/jquery.richtext.js"></script> -->
+                                        <script src="./assets/plugins/jquery/jquery.richtext.min.js"></script>                 
+                    
+        <script>
+            
+                           $('#first_col').richText()
+                           $('#second_col').richText();
+                           $('#third_col').richText();
+                           var is_data = true
+                           var id=0
+
+            $(document).ready(function(){
+                let db = require("better-sqlite3")("carWorkshop.db")
+// let db = new sqlite3.Database(
+//   "./db/carWorkshop.db",
+//   sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE
+// );
+                const sql=`SELECT * FROM settings ORDER BY id desc`;
+                try{
+                    const a =db.prepare(sql).get()
+               console.log(a)
+               id=a.id
+               if(a!=undefined){
+               $('#colsel').val(a.selectValue).trigger("change");
+               $('#first_col').val(a.firstCol).trigger('change')
+               $('#second_col').val(a.secondCol).trigger('change')
+                $('#third_col').val(a.thirdCol).trigger('change');
+}
+                }
+                catch(err){
+                    is_data=false
+                }
+               
+    db.close();
+             
+                
+              
+                $('#back').on('click',function(){
+                         location.replace('dashboard.html');
+                       })
+
+            });
+
+            $('#save_d').on('click',function(){
+            // console.log("ere")
+            var formdata = {
+            selectValue :  $('#colsel').val(),
+            firstCol: $('#first_col').val(),
+            secondCol : $('#second_col').val(),
+            thirdCol : $('#third_col').val()
+        };
+        console.log(formdata)  
+                let db = require("better-sqlite3")("carWorkshop.db")
+// let db = new sqlite3.Database(
+//   "./db/carWorkshop.db",
+//   sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE
+// );
+// const sql=`INSERT INTO settings (selectValue,firstCol,secondCol,thirdCol)
+//                 VALUES(?,?,?,?)`;
+//         db.prepare(sql).run([$('#colsel').val(),$('#first_col').val(),$('#second_col').val(),$('#third_col').val()]);
+if(is_data==false){
+    db.prepare(`CREATE TABLE IF NOT EXISTS settings (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,selectValue INTEGER NOT NULL,firstCol TEXT NOT NULL,secondCol TEXT NOT NULL,thirdCol TEXT NOT NULL)`).run();
+        const sql=`INSERT INTO settings (selectValue,firstCol,secondCol,thirdCol)
+                VALUES(?,?,?,?)`;
+        db.prepare(sql).run([$('#colsel').val(),$('#first_col').val(),$('#second_col').val(),$('#third_col').val()]);
+}
+else{
+    const sql=`UPDATE settings SET selectValue=?,firstCol=?,secondCol=?,thirdCol=? where id=?`;
+        db.prepare(sql).run([$('#colsel').val(),$('#first_col').val(),$('#second_col').val(),$('#third_col').val()],id);
+}
+    
+        db.close()
+    
+        // localStorage.setItem("id",res2.lastInsertRowid);
+    })
+  
+
+    if (typeof module === 'object') {window.module = module; module = undefined;
+    }
+   </script>
+   <!-- If the require doesn't work, include first the jQuery file
+<script src="jquery-3.0.0.min.js"></script>-->
+
+                    <!-- <script type="text/javascript" src="App.js"></script>   -->
+
+            
+ 

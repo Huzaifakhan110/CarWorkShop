@@ -1,0 +1,279 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Responsive Admin Dashboard Template">
+    <meta name="keywords" content="admin,dashboard">
+    <meta name="author" content="stacks">
+    <!-- The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <!-- <title><?= $title ?> </title> -->
+
+    <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/plugins/font-awesome/css/all.min.css" rel="stylesheet">
+    <link href="../assets/plugins/select2/css/select2.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+    <!-- Theme Styles -->
+    <link href="../assets/css/lime.min.css" rel="stylesheet">
+    <link href="../assets/css/custom.css" rel="stylesheet">
+    <script src="../assets/js/Filter.js"></script>
+    <!-- <style>
+body {
+  padding: 25px;
+  background-color: white;
+  color: black;
+  font-size: 25px;
+}
+
+.dark-mode {
+  background-color: black;
+  color: white;
+}
+</style> -->
+    <!-- <script>
+function myFunction() {
+   var element = document.body;
+   element.classList.toggle("dark-mode");
+}
+</script> -->
+    <script src="../assets/js/Filter.js"></script>
+    <script src="../assets/js/print.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/print.min.css">
+
+    <!-- <link rel="stylesheet" type="text/css" href="../assets/css/print.min.css">      -->
+    <script>
+        var baseUrl = "https://mainterior.pk/erpapi/old";
+    </script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    <style>
+        .cursor-pointer {
+            cursor: pointer;
+        }
+
+        /* Toggle Button */
+        .cm-toggle {
+            -webkit-appearance: none;
+            -webkit-tap-highlight-color: transparent;
+            position: relative;
+            border: 0;
+            outline: 0;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+
+        /* To create surface of toggle button */
+        .cm-toggle:after {
+            content: '';
+            width: 60px;
+            height: 25px;
+            display: inline-block;
+            background: rgba(196, 195, 195, 0.55);
+            border-radius: 18px;
+            clear: both;
+        }
+
+
+        /* Contents before checkbox to create toggle handle */
+        .cm-toggle:before {
+            content: '';
+            width: 32px;
+            height: 29px;
+            display: block;
+            position: absolute;
+            left: 0;
+            top: -3px;
+            border-radius: 50%;
+            background: rgb(255, 255, 255);
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+        }
+
+
+        /* Shift the handle to left on check event */
+        .cm-toggle:checked:before {
+            left: 32px;
+            box-shadow: -1px 1px 3px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Background color when toggle button will be active */
+        .cm-toggle:checked:after {
+            background: #16a085;
+        }
+
+        /* Transition for smoothness */
+        .cm-toggle,
+        .cm-toggle:before,
+        .cm-toggle:after,
+        .cm-toggle:checked:before,
+        .cm-toggle:checked:after {
+            transition: ease .3s;
+            -webkit-transition: ease .3s;
+            -moz-transition: ease .3s;
+            -o-transition: ease .3s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- <div class="lime-sidebar">
+        <div class="lime-sidebar-inner slimscroll">
+            <ul class="accordion-menu">
+                <li class="sidebar-title">
+                    Menu
+                </li>
+                <li>
+                    <a href="dashboard.php" id="dashboard"><i class="material-icons">dashboard</i>Dashboard</a>
+                </li>
+                <li>
+                    <a href="company-registration.php" id="company"><i class="material-icons">business</i>Company Registration</a>
+                </li>
+
+                <li>
+                    <a href="contractors.php" id="contractor"><i class="fa fa-user"></i>Contractors</a>
+                </li>
+
+                <li class="sidebar-title">
+                    Projects
+                </li>
+                <li>
+                    <a href="project-registration.php" id="project"><i class="fa fa-project-diagram"></i>Project Registration</a>
+                </li>
+                <li>
+                    <a href="project-details.php" id="project_detail"><i class="fa fa-project-diagram"></i>Project Details</a>
+                </li>
+
+                <li>
+                    <a href="employee-management.php" id="employee"><i class="material-icons">badge</i>Employee Management </a>
+                </li>
+
+                <li class="sidebar-title">
+                    Banking
+                </li>
+                <li>
+                    <a href="accounts.php" id="account"><i class="fa fa-user-circle"></i>Accounts</a>
+                </li>
+                <li>
+                    <a href="transfer.php" id="transfer"><i class="fa fa-comments-dollar"></i>Transfer</a>
+                </li>
+
+                <li>
+                    <a href="receiving.php" id="recieved"><i class="fa fa-receipt"></i>Receiving</a>
+                </li>
+                <li>
+                    <a href="expenses.php" id="expense"><i class="fa fa-receipt"></i>Expense</a>
+                </li>
+                <li>
+                    <a href="expense_account.php"><i class="fa fa-user-circle"></i>Expense Account</a>
+                </li>
+                <li>
+                    <a href="personal_expense.php"><i class="fa fa-receipt"></i>other Expense</a>
+                </li>
+                <li>
+                        <a href="receiving-receipt.php"><i class="fa fa-receipt"></i>Receiving slip</a>
+                    </li> 
+                <li class="sidebar-title">
+                    Users
+                </li>
+                <li>
+                    <a href="user-management.php" id="user"><i class="fa fa-user"></i>User Management</a>
+                </li>
+
+                <li class="sidebar-title">
+                    Quotation
+                </li>
+                <li>
+                    <a href="quotation.php" id="quot"><i class="fa fa-receipt"></i>Quotation</a>
+                </li>
+
+                <li class="sidebar-title">
+                    Attendance
+                </li>
+                <li>
+                    <a href="attendance.php" id="attend"><i class="fa fa-check"></i>Attendance</a>
+                </li>
+                <li class="sidebar-title">
+                    Reporting
+                </li>
+                <li>
+                    <a href="reporting.php" id="report"><i class="fa fa-flag"></i>Reports</a>
+                </li>
+                <li>
+                    <a href="transaction-details.php" id="transaction"><i class="fa fa-comments-dollar"></i>Transaction Details</a>
+                </li>
+
+                <li class="sidebar-title">
+                    Others
+                </li>
+                <li>
+                    <a href="other_expense_form.php" id="other_expense"><i class="fa fa-money-bill-wave"></i>other expese details</a>
+                </li>
+                <li>
+                    <a href="currency_form.php" id="other_expense"><i class="fa fa-dollar-sign"></i>Currency details</a>
+                </li>
+            </ul>
+        </div>
+    </div> -->
+
+    <div class="lime-header">
+        <nav class="navbar navbar-expand-lg">
+            <section class="material-design-hamburger navigation-toggle">
+                <a href="javascript:void(0)" class="button-collapse material-design-hamburger__icon">
+                    <span class="material-design-hamburger__layer"></span>
+                </a>
+            </section>
+            <a class="navbar-brand" href="dashboard.php">MA Interiors</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="material-icons">keyboard_arrow_down</i>
+            </button>
+            <!-- <button onclick="myFunction()">Toggle dark mode</button> -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+
+                            <!-- <li class="divider"></li> -->
+                            <li onclick="logout()"><a class="dropdown-item" href="#"><b>Log Out</b></a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <script>
+        function logout() {
+            $.ajaxSetup({
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("token")
+                }
+            })
+            $.ajax({
+                url: baseUrl + "/api/logout",
+                type: "POST",
+
+                success: function(result) {
+                    localStorage.clear();
+                    location.href = 'login.php';
+
+                }
+            })
+        }
+    </script>
